@@ -2817,6 +2817,204 @@ paths:
                 searchCriteria: {}
               required:
                 - searchCriteria
+  /crm/objects/{objectType}/{id}:
+    get:
+      operationId: crm_dynamicObject_getDynamicObject
+      tags:
+        - CrmDynamicObject
+      parameters:
+        - name: objectType
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          required: false
+          schema:
+            type: string
+            nullable: true
+        - name: associations
+          in: query
+          required: false
+          schema:
+            type: string
+            nullable: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/crmGetDynamicObjectResponse'
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonBaseError'
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonBaseError'
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonBaseError'
+    patch:
+      operationId: crm_dynamicObject_updateDynamicObject
+      tags:
+        - CrmDynamicObject
+      parameters:
+        - name: objectType
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/crmCreateOrUpdateDynamicObjectResponse'
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonBaseError'
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonBaseError'
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonBaseError'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {}
+  /crm/objects/{objectType}:
+    get:
+      operationId: crm_dynamicObject_getDynamicObjects
+      tags:
+        - CrmDynamicObject
+      parameters:
+        - name: objectType
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          required: false
+          schema:
+            type: string
+            nullable: true
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: string
+            nullable: true
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            type: string
+            nullable: true
+        - name: associations
+          in: query
+          required: false
+          schema:
+            type: string
+            nullable: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/crmGetDynamicObjectsResponse'
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonBaseError'
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonBaseError'
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonBaseError'
+    post:
+      operationId: crm_dynamicObject_createDynamicObject
+      tags:
+        - CrmDynamicObject
+      parameters:
+        - name: objectType
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/crmCreateOrUpdateDynamicObjectResponse'
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonBaseError'
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonBaseError'
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonBaseError'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {}
   /crm/events/{id}:
     get:
       description: Get details of a event
@@ -7170,6 +7368,47 @@ components:
       required:
         - status
         - results
+    crmGetDynamicObjectResponse:
+      title: crmGetDynamicObjectResponse
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/commonResponseStatus'
+        result: {}
+      required:
+        - status
+        - result
+    crmGetDynamicObjectsResponse:
+      title: crmGetDynamicObjectsResponse
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/commonResponseStatus'
+        next:
+          type: string
+          nullable: true
+        previous:
+          type: string
+          nullable: true
+        results:
+          type: array
+          items: {}
+      required:
+        - status
+        - results
+    crmCreateOrUpdateDynamicObjectResponse:
+      title: crmCreateOrUpdateDynamicObjectResponse
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/commonResponseStatus'
+        message:
+          type: string
+        result: {}
+      required:
+        - status
+        - message
+        - result
     crmGetEventResponse:
       title: crmGetEventResponse
       type: object
