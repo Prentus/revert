@@ -7,3 +7,4 @@ export * from './note';
 export * from './task';
 export * from './user';
 export * from './proxy';
+export * from './dynamicObject';
